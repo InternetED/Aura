@@ -17,11 +17,12 @@ void AAuraPlayerController::BeginPlay()
 	Super::BeginPlay();
 	check(AuraContext);
 
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
-		GetLocalPlayer());
-	check(Subsystem);
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+		GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(AuraContext, 0);
+	}
 
-	Subsystem->AddMappingContext(AuraContext, 0);
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -53,7 +54,7 @@ void AAuraPlayerController::CursorTrace()
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
 
-	
+
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
 
@@ -71,10 +72,9 @@ void AAuraPlayerController::CursorTrace()
 	 *	E. Both actors are valid, and are the same actor
 	 *		- Do nothing.
 	 */
-	if(ThisActor == nullptr)
+	if (ThisActor == nullptr)
 	{
-	UE_LOG(LogTemp, Warning, TEXT("The integer value is: %d , %d"), LastActor == nullptr ,ThisActor == nullptr);
-		
+		UE_LOG(LogTemp, Warning, TEXT("The integer value is: %d , %d"), LastActor == nullptr, ThisActor == nullptr);
 	}
 
 	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White,   );
