@@ -72,11 +72,6 @@ void AAuraPlayerController::CursorTrace()
 	 *	E. Both actors are valid, and are the same actor
 	 *		- Do nothing.
 	 */
-	if (ThisActor == nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The integer value is: %d , %d"), LastActor == nullptr, ThisActor == nullptr);
-	}
-
 	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White,   );
 
 	if (LastActor == nullptr)
