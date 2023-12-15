@@ -10,6 +10,7 @@ void UOverlayWidgetController::BroadcastInitValues()
 {
 	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
 
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue,FString::Printf("Max Health: %d",AuraAttributeSet->GetMaxHealth()));
 	OnHealthChanged.Broadcast(AuraAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
 	OnManaChanged.Broadcast(AuraAttributeSet->GetMana());
@@ -29,7 +30,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute())
 	                      .AddLambda([this](const FOnAttributeChangeData& Data)
 	                      {
-		                      OnManaChanged.Broadcast(Data.NewValue);
+		                      OnMaxHealthChanged.Broadcast(Data.NewValue);
 	                      });
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute())
