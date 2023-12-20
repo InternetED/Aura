@@ -52,6 +52,27 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	                FName("Attributes.Secondary.MaxHealth"), FString("Maximum amount to Health obtainable"));
 	AddGameplayTags(GameplayTags.Attributes_Secondary_MaxMana,
 	                FName("Attributes.Secondary.MaxMana"), FString("Maximum amount to Mana obtainable"));
+
+	/*
+	 * Input Tags
+	 */
+	AddGameplayTags(GameplayTags.InputTag_LMB,
+					FName("InputTag.LMB"), FString("Input Tag for Left Mouse Button"));
+	
+	AddGameplayTags(GameplayTags.InputTag_RMB,
+					FName("InputTag.RMB"), FString("Input Tag for Right Mouse Button"));
+	
+	AddGameplayTags(GameplayTags.InputTag_1,
+					FName("InputTag.1"), FString("Input Tag for 1 key"));
+	
+	AddGameplayTags(GameplayTags.InputTag_2,
+					FName("InputTag.2"), FString("Input Tag for 2 key"));
+	
+	AddGameplayTags(GameplayTags.InputTag_3,
+					FName("InputTag.3"), FString("Input Tag for 3 key"));
+	
+	AddGameplayTags(GameplayTags.InputTag_4,
+					FName("InputTag.4"), FString("Input Tag for 4 key"));
 }
 
 void FAuraGameplayTags::AddGameplayTags(FGameplayTag& GameplayTag, const FName TagName, const FString& Description)
