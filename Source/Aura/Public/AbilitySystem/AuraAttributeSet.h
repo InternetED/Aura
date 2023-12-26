@@ -71,7 +71,7 @@ public:
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
 	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
-	
+
 	/*
 	 * Primary Attributes
 	 */
@@ -154,6 +154,12 @@ public:
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana);
 
+	/*
+	 * Meta Attributes
+	 */
+	UPROPERTY(BlueprintReadOnly, Category ="Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
 
 	/*
 	 * Primary Attributes
@@ -217,4 +223,6 @@ public:
 
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
+
+	void ShowFloatingText(const FEffectProperties& Props,float Damage) const;
 };

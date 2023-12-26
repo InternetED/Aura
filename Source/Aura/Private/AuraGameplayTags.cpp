@@ -73,6 +73,12 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	AddGameplayTags(GameplayTags.InputTag_4,
 					FName("InputTag.4"), FString("Input Tag for 4 key"));
+
+	
+	AddGameplayTags(GameplayTags.Damage,
+					FName("Damage"), FString("Damage"));
+	AddGameplayTags(GameplayTags.Effects_HitReact,
+					FName("Effects.HitReact"), FString("Tag granted when Hit Reacting"));
 }
 
 void FAuraGameplayTags::AddGameplayTags(FGameplayTag& GameplayTag, const FName TagName, const FString& Description)
