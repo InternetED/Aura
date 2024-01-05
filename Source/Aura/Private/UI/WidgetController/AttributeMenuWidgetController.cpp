@@ -31,6 +31,7 @@ void UAttributeMenuWidgetController::BroadcastInitValues()
 	{
 		BroadcastAttributeInfo(Pair.Key, Pair.Value());
 	}
+	
 }
 
 void UAttributeMenuWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag,

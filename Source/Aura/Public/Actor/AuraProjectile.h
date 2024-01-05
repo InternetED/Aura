@@ -26,7 +26,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void BeginDestroy() override;
+	virtual void Destroyed() override;
 
 	UFUNCTION()
 	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -51,5 +51,5 @@ private:
 	TObjectPtr<USoundBase> LoppingSound;
 
 	UPROPERTY()
-	TObjectPtr<UAudioComponent> LoppingSoundComponent;
+	TObjectPtr<UAudioComponent> LoopingSoundComponent;
 };

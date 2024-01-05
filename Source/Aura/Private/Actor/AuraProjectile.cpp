@@ -39,40 +39,50 @@ void AAuraProjectile::BeginPlay()
 	SetLifeSpan(LifeSpan);
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraProjectile::OnSphereOverlap);
 
-	LoppingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoppingSound, GetRootComponent());
+	LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoppingSound, GetRootComponent());
 }
 
-void AAuraProjectile::BeginDestroy()
+void AAuraProjectile::Destroyed()
 {
 	if (!bHit && !HasAuthority())
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation(), FRotator::ZeroRotator);
-		
-		if (LoppingSoundComponent)
-		{
-			LoppingSoundComponent->Stop();	
-		}
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+		if (LoopingSoundComponent) LoopingSoundComponent->Stop();
 	}
-	Super::BeginDestroy();
+	Super::Destroyed();
 }
+
 
 void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
                                       const FHitResult& SweepResult)
 {
-	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation(), FRotator::ZeroRotator);
-	LoppingSoundComponent->Stop();
+	
+	
+	if (DamageEffectSpecHandle.Data.IsValid()
+		&& DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor)
+	{
+		return;
+	}
+
+	if (!bHit)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation(), FRotator::ZeroRotator);
+		if (LoopingSoundComponent)
+		{
+			LoopingSoundComponent->Stop();
+		}
+	}
 
 	if (HasAuthority())
 	{
-		if (UAbilitySystemComponent *TargetASC= UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
 		{
 			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
-			
 		};
-		
+
 		Destroy();
 	}
 	else

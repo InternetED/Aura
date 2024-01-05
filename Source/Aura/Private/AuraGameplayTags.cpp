@@ -57,28 +57,67 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	 * Input Tags
 	 */
 	AddGameplayTags(GameplayTags.InputTag_LMB,
-					FName("InputTag.LMB"), FString("Input Tag for Left Mouse Button"));
-	
-	AddGameplayTags(GameplayTags.InputTag_RMB,
-					FName("InputTag.RMB"), FString("Input Tag for Right Mouse Button"));
-	
-	AddGameplayTags(GameplayTags.InputTag_1,
-					FName("InputTag.1"), FString("Input Tag for 1 key"));
-	
-	AddGameplayTags(GameplayTags.InputTag_2,
-					FName("InputTag.2"), FString("Input Tag for 2 key"));
-	
-	AddGameplayTags(GameplayTags.InputTag_3,
-					FName("InputTag.3"), FString("Input Tag for 3 key"));
-	
-	AddGameplayTags(GameplayTags.InputTag_4,
-					FName("InputTag.4"), FString("Input Tag for 4 key"));
+	                FName("InputTag.LMB"), FString("Input Tag for Left Mouse Button"));
 
-	
-	AddGameplayTags(GameplayTags.Damage,
-					FName("Damage"), FString("Damage"));
+	AddGameplayTags(GameplayTags.InputTag_RMB,
+	                FName("InputTag.RMB"), FString("Input Tag for Right Mouse Button"));
+
+	AddGameplayTags(GameplayTags.InputTag_1,
+	                FName("InputTag.1"), FString("Input Tag for 1 key"));
+
+	AddGameplayTags(GameplayTags.InputTag_2,
+	                FName("InputTag.2"), FString("Input Tag for 2 key"));
+
+	AddGameplayTags(GameplayTags.InputTag_3,
+	                FName("InputTag.3"), FString("Input Tag for 3 key"));
+
+	AddGameplayTags(GameplayTags.InputTag_4,
+	                FName("InputTag.4"), FString("Input Tag for 4 key"));
+
+
+	/*
+	 * Damage Types
+	 */
+
+	AddGameplayTags(GameplayTags.Damage_Fire,
+	                FName("Damage.Fire"), FString("Fire Damage Type"));
+	AddGameplayTags(GameplayTags.Damage_Lightning,
+	                FName("Damage.Lightning"), FString("Lightning Damage Type"));
+	AddGameplayTags(GameplayTags.Damage_Arcane,
+	                FName("Damage.Arcane"), FString("Arcane Damage Type"));
+	AddGameplayTags(GameplayTags.Damage_Physical,
+	                FName("Damage.Physical"), FString("Physical Damage Type"));
+
+	/*
+	 * Resistances
+	 */
+	AddGameplayTags(GameplayTags.Attributes_Resistance_Fire,
+	                FName("Attributes.Resistance.Fire"), FString("Resistance to Fire damage"));
+	AddGameplayTags(GameplayTags.Attributes_Resistance_Lightning,
+	                FName("Attributes.Resistance.Lightning"), FString("Resistance to Lightning damage"));
+	AddGameplayTags(GameplayTags.Attributes_Resistance_Arcane,
+	                FName("Attributes.Resistance.Arcane"), FString("Resistance to Arcane damage"));
+	AddGameplayTags(GameplayTags.Attributes_Resistance_Physical,
+	                FName("Attributes.Resistance.Physical"), FString("Resistance to Physical damage"));
+	/*
+	 * Map of Damage Types to Resistances
+	 */
+	GameplayTags.DamageTypesToResistance.Add(
+		GameplayTags.Damage_Fire, GameplayTags.Attributes_Resistance_Fire);
+	GameplayTags.DamageTypesToResistance.Add(
+		GameplayTags.Damage_Lightning, GameplayTags.Attributes_Resistance_Lightning);
+	GameplayTags.DamageTypesToResistance.Add(
+		GameplayTags.Damage_Arcane, GameplayTags.Attributes_Resistance_Arcane);
+	GameplayTags.DamageTypesToResistance.Add(
+		GameplayTags.Damage_Physical, GameplayTags.Attributes_Resistance_Physical);
+
+
+	/*
+	 * Effects
+	 */
+
 	AddGameplayTags(GameplayTags.Effects_HitReact,
-					FName("Effects.HitReact"), FString("Tag granted when Hit Reacting"));
+	                FName("Effects.HitReact"), FString("Tag granted when Hit Reacting"));
 }
 
 void FAuraGameplayTags::AddGameplayTags(FGameplayTag& GameplayTag, const FName TagName, const FString& Description)
